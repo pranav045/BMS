@@ -24,20 +24,29 @@ A Bank Management System built with **Spring Boot** and **REST APIs**, enabling 
 
 ## 📂 Project Structure
 
-| Path                          | Description                          |
-|-------------------------------|--------------------------------------|
-| `src/main/java/com/bms/`      | Root package for application code    |
-| ├── `controller/`             | REST Controllers (API endpoints)     |
-| ├── `service/`                | Business Logic Layer                 |
-| ├── `repository/`             | JPA Repositories (DB access)         |
-| ├── `model/`                  | Entities (Customer, Account, etc.)   |
-| ├── `dto/`                    | Data Transfer Objects                |
-| ├── `exception/`              | Custom Exceptions & Handlers         |
-| └── `config/`                 | Security & App Configurations        |
-| `src/main/resources/`         | Application resources                |
-| ├── `application.yml`         | DB & App Config                      |
-| └── `schema.sql`              | Database Schema                      |
-| `src/test/`                   | Unit & Integration Tests             |
-| `pom.xml`                     | Maven Dependencies                   |
-| `README.md`                   | Project Documentation                |
+| Path                          | Description                                |
+|-------------------------------|--------------------------------------------|
+| `src/main/java/com/bms/`      | Root package for application code          |
+| ├── `controller/`             | REST Controllers (API endpoints)           |
+| ├── `service/`                | Business Logic Layer                       |
+| ├── `repository/`             | JPA Repositories (DB access)               |
+| ├── `dao/`                    | Data Access Objects (custom queries, logic)|
+| ├── `entity/`                 | Entities (Customer, Account, Transaction)  |
+| ├── `dto/`                    | Data Transfer Objects (request/response)   |
+| ├── `exception/`              | Custom Exceptions & Global Handlers        |
+| └── `config/`                 | Security & App Configurations              |
+| `src/main/resources/`         | Application resources                      |
+| ├── `application.yml`         | DB & App Config                            |
+| `src/test/`                   | Unit & Integration Tests                   |
+| `pom.xml`                     | Maven Dependencies                         |
+| `README.md`                   | Project Documentation                      |
 
+---
+
+
+---
+
+## 🚀 Getting Started
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/BMS.git
