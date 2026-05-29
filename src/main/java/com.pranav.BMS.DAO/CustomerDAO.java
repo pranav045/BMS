@@ -1,0 +1,21 @@
+package com.pranav.BMS.DAO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.pranav.BMS.Entity.Customer;
+import com.pranav.BMS.Repository.CustomerRepository;
+
+@Repository
+public class CustomerDAO {
+	@Autowired
+	private CustomerRepository customerRepository;
+
+	public Customer saveCustomer(Customer customer) {
+		return customerRepository.save(customer);
+	}
+
+	public Customer getCustomer(int id) {
+		return customerRepository.findById(id).orElse(null);
+	}
+}
