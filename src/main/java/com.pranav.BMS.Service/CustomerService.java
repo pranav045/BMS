@@ -1,0 +1,25 @@
+package com.pranav.BMS.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.pranav.BMS.DAO.CustomerDAO;
+import com.pranav.BMS.DTO.ResponseStructure;
+import com.pranav.BMS.Entity.Customer;
+
+@Service
+public class CustomerService {
+	@Autowired
+	private CustomerDAO customerDAO;
+
+	public ResponseEntity<ResponseStructure<Customer>> saveCustomer(Customer customer) {
+		Customer data = customerDAO.saveCustomer(customer);
+		ResponseStructure<Customer> rs = new ResponseStructure<Customer>();
+		rs.setData(data);
+		rs.setMessage("Customer added successfully");
+		rs.setStatusCode(HttpStatus.CREATED.value());
+		return new ResponseEntity<ResponseStructure<Customer>>(rs, HttpStatus.CREATED);
+	}
+}
