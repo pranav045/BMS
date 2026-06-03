@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.AccountDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Account;
+import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
 public class AccountService {
@@ -21,5 +22,18 @@ public class AccountService {
 		rs.setMessage("Account created successfully");
 		rs.setStatusCode(HttpStatus.CREATED.value());
 		return new ResponseEntity<ResponseStructure<Account>>(rs, HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<ResponseStructure<Account>> getAccount(String id) {
+		Account data = accountDAO.getAccount(id);
+		if (data != null) {
+			ResponseStructure<Account> rs = new ResponseStructure<Account>();
+			rs.setData(data);
+			rs.setMessage("Account Id " + id + " found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<Account>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new IdDoesNotPresentException("Account having id " + id + " not found");
+		}
 	}
 }
