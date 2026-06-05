@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.CustomerDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Customer;
+import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
 public class CustomerService {
@@ -21,5 +22,18 @@ public class CustomerService {
 		rs.setMessage("Customer added successfully");
 		rs.setStatusCode(HttpStatus.CREATED.value());
 		return new ResponseEntity<ResponseStructure<Customer>>(rs, HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<ResponseStructure<Customer>> getCustomer(int id) {
+		Customer data = customerDAO.getCustomer(id);
+		if (data != null) {
+			ResponseStructure<Customer> rs = new ResponseStructure<Customer>();
+			rs.setData(data);
+			rs.setMessage("Customer id " + id + " found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<Customer>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new IdDoesNotPresentException("Customer id" + id + " not found");
+		}
 	}
 }
