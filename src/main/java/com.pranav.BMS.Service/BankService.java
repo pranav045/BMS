@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.BankDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Bank;
+import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
 public class BankService {
@@ -21,5 +22,18 @@ public class BankService {
 		rs.setMessage("Bank added successfully");
 		rs.setStatusCode(HttpStatus.CREATED.value());
 		return new ResponseEntity<ResponseStructure<Bank>>(rs, HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<ResponseStructure<Bank>> getBank(String id) {
+		Bank data = bankDAO.getBank(id);
+		if (data != null) {
+			ResponseStructure<Bank> rs = new ResponseStructure<Bank>();
+			rs.setData(data);
+			rs.setMessage("Bank id " + id + " found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<Bank>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new IdDoesNotPresentException("Account id " + id + " not found");
+		}
 	}
 }
