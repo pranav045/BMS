@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.BranchDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Branch;
+import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
 public class BranchService {
@@ -21,5 +22,18 @@ public class BranchService {
 		rs.setMessage("Branch added successfully");
 		rs.setStatusCode(HttpStatus.CREATED.value());
 		return new ResponseEntity<ResponseStructure<Branch>>(rs, HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<ResponseStructure<Branch>> getBranch(String id) {
+		Branch data = branchDAO.getBranch(id);
+		if (data != null) {
+			ResponseStructure<Branch> rs = new ResponseStructure<Branch>();
+			rs.setData(data);
+			rs.setMessage("Branch id " + id + " found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<Branch>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new IdDoesNotPresentException("Branch id " + id + " not found");
+		}
 	}
 }
