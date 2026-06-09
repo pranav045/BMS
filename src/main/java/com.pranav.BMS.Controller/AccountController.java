@@ -2,7 +2,10 @@ package com.pranav.BMS.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pranav.BMS.DTO.ResponseStructure;
@@ -15,7 +18,12 @@ public class AccountController {
 	private AccountService accountService;
 
 	@PostMapping("/saveAccount")
-	public ResponseEntity<ResponseStructure<Account>> saveAccount(Account account) {
+	public ResponseEntity<ResponseStructure<Account>> saveAccount(@RequestBody Account account) {
 		return accountService.saveAccount(account);
+	}
+
+	@GetMapping("/getAccount/{id}")
+	public ResponseEntity<ResponseStructure<Account>> getAccount(@PathVariable String id) {
+		return accountService.getAccount(id);
 	}
 }
