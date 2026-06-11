@@ -1,21 +1,27 @@
 package com.pranav.BMS.DAO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.pranav.BMS.Entity.Account;
-import com.pranav.BMS.Repository.AccountRepository;
+import com.pranav.BMS.Entity.Bank;
+import com.pranav.BMS.Repository.BankRepository;
 
 @Repository
-public class AccountDAO {
+public class BankDAO {
 	@Autowired
-	private AccountRepository accountRepository;
+	private BankRepository bankRepository;
 
-	public Account saveAccount(Account account) {
-		return accountRepository.save(account);
+	public Bank saveBank(Bank bank) {
+		return bankRepository.save(bank);
 	}
 
-	public Account getAccount(String id) {
-		return accountRepository.findById(id).orElse(null);
+	public Bank getBank(String id) {
+		return bankRepository.findById(id).orElse(null);
+	}
+
+	public List<Bank> getAllBanks() {
+		return bankRepository.findAll();
 	}
 }
