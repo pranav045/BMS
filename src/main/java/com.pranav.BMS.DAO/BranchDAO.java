@@ -1,5 +1,7 @@
 package com.pranav.BMS.DAO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,9 @@ public class BranchDAO {
 
 	public Branch getBranch(String id) {
 		return branchRepository.findById(id).orElse(null);
+	}
+
+	public List<Branch> getAllBranches() {
+		return branchRepository.findAll();
 	}
 }
