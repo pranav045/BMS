@@ -1,5 +1,7 @@
 package com.pranav.BMS.DAO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,9 @@ public class CustomerDAO {
 
 	public Customer getCustomer(int id) {
 		return customerRepository.findById(id).orElse(null);
+	}
+
+	public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
 	}
 }
