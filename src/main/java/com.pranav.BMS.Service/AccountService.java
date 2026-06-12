@@ -1,5 +1,7 @@
 package com.pranav.BMS.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +37,14 @@ public class AccountService {
 		} else {
 			throw new IdDoesNotPresentException("Account having id " + id + " not found");
 		}
+	}
+
+	public ResponseEntity<ResponseStructure<List<Account>>> getAllAccounts() {
+		List<Account> data = accountDAO.getAllAccounts();
+		ResponseStructure<List<Account>> rs = new ResponseStructure<List<Account>>();
+		rs.setData(data);
+		rs.setMessage("All accounts retrieved successfully");
+		rs.setStatusCode(HttpStatus.FOUND.value());
+		return new ResponseEntity<ResponseStructure<List<Account>>>(rs, HttpStatus.FOUND);
 	}
 }
