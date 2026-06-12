@@ -1,5 +1,7 @@
 package com.pranav.BMS.DAO;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,9 @@ public class LoanDAO {
 
 	public Loan getLoan(int id) {
 		return loanRepository.findById(id).orElse(null);
+	}
+
+	public List<Loan> getAllLoans() {
+		return loanRepository.findAll();
 	}
 }
