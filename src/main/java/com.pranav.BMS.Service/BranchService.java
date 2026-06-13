@@ -1,5 +1,7 @@
 package com.pranav.BMS.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +37,14 @@ public class BranchService {
 		} else {
 			throw new IdDoesNotPresentException("Branch id " + id + " not found");
 		}
+	}
+
+	public ResponseEntity<ResponseStructure<List<Branch>>> getAllBranches() {
+		List<Branch> data = branchDAO.getAllBranches();
+		ResponseStructure<List<Branch>> rs = new ResponseStructure<List<Branch>>();
+		rs.setData(data);
+		rs.setMessage("All Branches found successfully");
+		rs.setStatusCode(HttpStatus.FOUND.value());
+		return new ResponseEntity<ResponseStructure<List<Branch>>>(rs, HttpStatus.FOUND);
 	}
 }
