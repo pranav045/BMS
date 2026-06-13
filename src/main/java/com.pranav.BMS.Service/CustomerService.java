@@ -1,5 +1,7 @@
 package com.pranav.BMS.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +37,14 @@ public class CustomerService {
 		} else {
 			throw new IdDoesNotPresentException("Customer id" + id + " not found");
 		}
+	}
+
+	public ResponseEntity<ResponseStructure<List<Customer>>> getAllCustomers() {
+		List<Customer> data = customerDAO.getAllCustomers();
+		ResponseStructure<List<Customer>> rs = new ResponseStructure<List<Customer>>();
+		rs.setData(data);
+		rs.setMessage("All Banks found successfully");
+		rs.setStatusCode(HttpStatus.FOUND.value());
+		return new ResponseEntity<ResponseStructure<List<Customer>>>(rs, HttpStatus.FOUND);
 	}
 }
