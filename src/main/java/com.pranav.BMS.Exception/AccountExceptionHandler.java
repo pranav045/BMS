@@ -15,4 +15,13 @@ public class AccountExceptionHandler {
 		rs.setStatusCode(HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.NOT_FOUND);
 	}
+
+	@ExceptionHandler(EmptyException.class)
+	public ResponseEntity<ResponseStructure<String>> catchEmptyException(EmptyException exception) {
+		ResponseStructure<String> rs = new ResponseStructure<String>();
+		rs.setData(exception.getMessage());
+		rs.setMessage("No Account found");
+		rs.setStatusCode(HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.NOT_FOUND);
+	}
 }
