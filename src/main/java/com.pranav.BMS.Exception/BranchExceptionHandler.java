@@ -15,4 +15,13 @@ public class BranchExceptionHandler {
 		rs.setStatusCode(HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.NOT_FOUND);
 	}
+
+	@ExceptionHandler(EmptyException.class)
+	public ResponseEntity<ResponseStructure<String>> catchEmptyEception(EmptyException exception) {
+		ResponseStructure<String> rs = new ResponseStructure<String>();
+		rs.setData(exception.getMessage());
+		rs.setMessage("No Branch found");
+		rs.setStatusCode(HttpStatus.FOUND.value());
+		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.FOUND);
+	}
 }
