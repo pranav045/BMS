@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.AccountDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Account;
+import com.pranav.BMS.Exception.EmptyException;
 import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
@@ -41,10 +42,14 @@ public class AccountService {
 
 	public ResponseEntity<ResponseStructure<List<Account>>> getAllAccounts() {
 		List<Account> data = accountDAO.getAllAccounts();
-		ResponseStructure<List<Account>> rs = new ResponseStructure<List<Account>>();
-		rs.setData(data);
-		rs.setMessage("All accounts retrieved successfully");
-		rs.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<List<Account>>>(rs, HttpStatus.FOUND);
+		if (data != null) {
+			ResponseStructure<List<Account>> rs = new ResponseStructure<List<Account>>();
+			rs.setData(data);
+			rs.setMessage("All accounts retrieved successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Account>>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new EmptyException("No Account found");
+		}
 	}
 }
