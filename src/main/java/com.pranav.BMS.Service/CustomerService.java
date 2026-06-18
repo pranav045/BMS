@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.CustomerDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Customer;
+import com.pranav.BMS.Exception.EmptyException;
 import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
@@ -41,10 +42,14 @@ public class CustomerService {
 
 	public ResponseEntity<ResponseStructure<List<Customer>>> getAllCustomers() {
 		List<Customer> data = customerDAO.getAllCustomers();
-		ResponseStructure<List<Customer>> rs = new ResponseStructure<List<Customer>>();
-		rs.setData(data);
-		rs.setMessage("All Banks found successfully");
-		rs.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<List<Customer>>>(rs, HttpStatus.FOUND);
+		if (data != null) {
+			ResponseStructure<List<Customer>> rs = new ResponseStructure<List<Customer>>();
+			rs.setData(data);
+			rs.setMessage("All Customers found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Customer>>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new EmptyException("No Customer found");
+		}
 	}
 }
