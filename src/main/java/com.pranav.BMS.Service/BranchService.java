@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.BranchDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Branch;
+import com.pranav.BMS.Exception.EmptyException;
 import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
@@ -41,10 +42,14 @@ public class BranchService {
 
 	public ResponseEntity<ResponseStructure<List<Branch>>> getAllBranches() {
 		List<Branch> data = branchDAO.getAllBranches();
-		ResponseStructure<List<Branch>> rs = new ResponseStructure<List<Branch>>();
-		rs.setData(data);
-		rs.setMessage("All Branches found successfully");
-		rs.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<List<Branch>>>(rs, HttpStatus.FOUND);
+		if (data != null) {
+			ResponseStructure<List<Branch>> rs = new ResponseStructure<List<Branch>>();
+			rs.setData(data);
+			rs.setMessage("All Branches found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Branch>>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new EmptyException("No branch found");
+		}
 	}
 }
