@@ -1,5 +1,7 @@
 package com.pranav.BMS.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +27,10 @@ public class AccountController {
 	@GetMapping("/getAccount/{id}")
 	public ResponseEntity<ResponseStructure<Account>> getAccount(@PathVariable String id) {
 		return accountService.getAccount(id);
+	}
+
+	@GetMapping("/getAllAccounts")
+	public ResponseEntity<ResponseStructure<List<Account>>> getAllAccounts() {
+		return accountService.getAllAccounts();
 	}
 }
