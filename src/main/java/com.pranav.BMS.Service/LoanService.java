@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.pranav.BMS.DAO.LoanDAO;
 import com.pranav.BMS.DTO.ResponseStructure;
 import com.pranav.BMS.Entity.Loan;
+import com.pranav.BMS.Exception.EmptyException;
 import com.pranav.BMS.Exception.IdDoesNotPresentException;
 
 @Service
@@ -42,10 +43,14 @@ public class LoanService {
 
 	public ResponseEntity<ResponseStructure<List<Loan>>> getAllLoans() {
 		List<Loan> data = loanDAO.getAllLoans();
-		ResponseStructure<List<Loan>> rs = new ResponseStructure<List<Loan>>();
-		rs.setData(data);
-		rs.setMessage("All Banks found successfully");
-		rs.setStatusCode(HttpStatus.FOUND.value());
-		return new ResponseEntity<ResponseStructure<List<Loan>>>(rs, HttpStatus.FOUND);
+		if (data != null) {
+			ResponseStructure<List<Loan>> rs = new ResponseStructure<List<Loan>>();
+			rs.setData(data);
+			rs.setMessage("All Banks found successfully");
+			rs.setStatusCode(HttpStatus.FOUND.value());
+			return new ResponseEntity<ResponseStructure<List<Loan>>>(rs, HttpStatus.FOUND);
+		} else {
+			throw new EmptyException("No loans found");
+		}
 	}
 }
