@@ -1,5 +1,7 @@
 package com.pranav.BMS.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +27,10 @@ public class BranchController {
 	@GetMapping("/getBranch/{id}")
 	public ResponseEntity<ResponseStructure<Branch>> getBranch(@PathVariable String id) {
 		return branchService.getBranch(id);
+	}
+
+	@GetMapping("/getAllBranches")
+	public ResponseEntity<ResponseStructure<List<Branch>>> getAllBranches() {
+		return branchService.getAllBranches();
 	}
 }
