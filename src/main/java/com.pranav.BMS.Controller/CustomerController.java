@@ -1,5 +1,7 @@
 package com.pranav.BMS.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +27,10 @@ public class CustomerController {
 	@GetMapping("/getCustomer/{id")
 	public ResponseEntity<ResponseStructure<Customer>> getCustomer(@PathVariable int id) {
 		return customerService.getCustomer(id);
+	}
+
+	@GetMapping("/getAllCustomers")
+	public ResponseEntity<ResponseStructure<List<Customer>>> getAllCustomers() {
+		return customerService.getAllCustomers();
 	}
 }
