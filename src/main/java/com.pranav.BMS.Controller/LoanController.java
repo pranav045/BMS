@@ -1,5 +1,7 @@
 package com.pranav.BMS.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,5 +27,10 @@ public class LoanController {
 	@GetMapping("/getLoan/{id}")
 	public ResponseEntity<ResponseStructure<Loan>> getLoan(@PathVariable int id) {
 		return loanService.getLoan(id);
+	}
+
+	@GetMapping("/getAllLoans")
+	public ResponseEntity<ResponseStructure<List<Loan>>> getAllLoans() {
+		return loanService.getAllLoans();
 	}
 }
