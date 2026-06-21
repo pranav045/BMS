@@ -24,4 +24,13 @@ public class AccountDAO {
 	public List<Account> getAllAccounts() {
 		return accountRepository.findAll();
 	}
+
+	public Boolean deleteAccount(String id) {
+		if (accountRepository.existsById(id)) {
+			accountRepository.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
