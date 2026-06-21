@@ -24,4 +24,12 @@ public class BranchDAO {
 	public List<Branch> getAllBranches() {
 		return branchRepository.findAll();
 	}
+
+	public Boolean deleteBranch(String id) {
+		if (branchRepository.existsById(id)) {
+			branchRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }
