@@ -24,4 +24,12 @@ public class BankDAO {
 	public List<Bank> getAllBanks() {
 		return bankRepository.findAll();
 	}
+
+	public Boolean deleteBank(String id) {
+		if (bankRepository.existsById(id)) {
+			bankRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }
