@@ -24,4 +24,12 @@ public class CustomerDAO {
 	public List<Customer> getAllCustomers() {
 		return customerRepository.findAll();
 	}
+
+	public boolean deleteCustomer(int id) {
+		if (customerRepository.existsById(id)) {
+			customerRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }
