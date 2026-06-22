@@ -24,4 +24,12 @@ public class LoanDAO {
 	public List<Loan> getAllLoans() {
 		return loanRepository.findAll();
 	}
+
+	public boolean deleteLoan(int id) {
+		if (loanRepository.existsById(id)) {
+			loanRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }
