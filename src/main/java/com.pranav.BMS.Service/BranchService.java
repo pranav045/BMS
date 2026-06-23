@@ -52,4 +52,13 @@ public class BranchService {
 			throw new EmptyException("No branch found");
 		}
 	}
+
+	public ResponseEntity<ResponseStructure<Branch>> deleteBranch(String id) {
+		branchDAO.deleteBranch(id);
+		ResponseStructure<Branch> rs = new ResponseStructure<Branch>();
+		rs.setData(null);
+		rs.setMessage("Branch having id " + id + " deleted successfully");
+		rs.setStatusCode(HttpStatus.ACCEPTED.value());
+		return new ResponseEntity<ResponseStructure<Branch>>(rs, HttpStatus.ACCEPTED);
+	}
 }
