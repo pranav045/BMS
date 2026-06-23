@@ -52,4 +52,13 @@ public class CustomerService {
 			throw new EmptyException("No Customer found");
 		}
 	}
+
+	public ResponseEntity<ResponseStructure<Customer>> deleteBranch(int id) {
+		customerDAO.deleteCustomer(id);
+		ResponseStructure<Customer> rs = new ResponseStructure<Customer>();
+		rs.setData(null);
+		rs.setMessage("Customer having id " + id + " deleted successfully");
+		rs.setStatusCode(HttpStatus.ACCEPTED.value());
+		return new ResponseEntity<ResponseStructure<Customer>>(rs, HttpStatus.ACCEPTED);
+	}
 }
