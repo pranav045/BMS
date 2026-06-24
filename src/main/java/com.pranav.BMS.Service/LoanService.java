@@ -53,4 +53,13 @@ public class LoanService {
 			throw new EmptyException("No loans found");
 		}
 	}
+
+	public ResponseEntity<ResponseStructure<Loan>> deleteLoan(int id) {
+		loanDAO.deleteLoan(id);
+		ResponseStructure<Loan> rs = new ResponseStructure<Loan>();
+		rs.setData(null);
+		rs.setMessage("Loan having id " + id + " delete successfully");
+		rs.setStatusCode(HttpStatus.ACCEPTED.value());
+		return new ResponseEntity<ResponseStructure<Loan>>(rs, HttpStatus.ACCEPTED);
+	}
 }
