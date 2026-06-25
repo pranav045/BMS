@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +33,10 @@ public class LoanController {
 	@GetMapping("/getAllLoans")
 	public ResponseEntity<ResponseStructure<List<Loan>>> getAllLoans() {
 		return loanService.getAllLoans();
+	}
+
+	@DeleteMapping("/deleteLoan")
+	public ResponseEntity<ResponseStructure<Loan>> deleteLoan(@PathVariable int id) {
+		return loanService.deleteLoan(id);
 	}
 }
