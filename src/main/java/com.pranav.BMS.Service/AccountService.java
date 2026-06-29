@@ -54,11 +54,16 @@ public class AccountService {
 	}
 
 	public ResponseEntity<ResponseStructure<Account>> deleteAccount(String id) {
-		accountDAO.deleteAccount(id);
-		ResponseStructure<Account> rs = new ResponseStructure<Account>();
-		rs.setData(null);
-		rs.setMessage("Account having id " + id + " deleted successfully");
-		rs.setStatusCode(HttpStatus.ACCEPTED.value());
-		return new ResponseEntity<ResponseStructure<Account>>(rs, HttpStatus.ACCEPTED);
+		Account data = accountDAO.getAccount(id);
+		if (data != null) {
+			accountDAO.deleteAccount(id);
+			ResponseStructure<Account> rs = new ResponseStructure<Account>();
+			rs.setData(null);
+			rs.setMessage("Account having id " + id + " deleted successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Account>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Account id " + id + " not found");
+		}
 	}
 }
