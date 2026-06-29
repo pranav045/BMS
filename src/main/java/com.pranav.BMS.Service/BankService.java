@@ -54,11 +54,16 @@ public class BankService {
 	}
 
 	public ResponseEntity<ResponseStructure<Bank>> deleteBank(String id) {
-		bankDAO.deleteBank(id);
-		ResponseStructure<Bank> rs = new ResponseStructure<Bank>();
-		rs.setData(null);
-		rs.setMessage("Bank having id " + id + " deleted successfully");
-		rs.setStatusCode(HttpStatus.ACCEPTED.value());
-		return new ResponseEntity<ResponseStructure<Bank>>(rs, HttpStatus.ACCEPTED);
+		Bank data = bankDAO.getBank(id);
+		if (data != null) {
+			bankDAO.deleteBank(id);
+			ResponseStructure<Bank> rs = new ResponseStructure<Bank>();
+			rs.setData(null);
+			rs.setMessage("Bank having id " + id + " deleted successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Bank>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Bank id " + id + " not found");
+		}
 	}
 }
