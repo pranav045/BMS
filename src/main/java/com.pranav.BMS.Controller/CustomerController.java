@@ -37,6 +37,6 @@ public class CustomerController {
 
 	@DeleteMapping("/deleteBranch")
 	public ResponseEntity<ResponseStructure<Customer>> deleteCustomer(@PathVariable int id) {
-		return customerService.deleteBranch(id);
+		return customerService.deleteCustomer(id);
 	}
 }
