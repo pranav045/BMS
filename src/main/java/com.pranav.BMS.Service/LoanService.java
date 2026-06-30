@@ -55,11 +55,16 @@ public class LoanService {
 	}
 
 	public ResponseEntity<ResponseStructure<Loan>> deleteLoan(int id) {
-		loanDAO.deleteLoan(id);
-		ResponseStructure<Loan> rs = new ResponseStructure<Loan>();
-		rs.setData(null);
-		rs.setMessage("Loan having id " + id + " delete successfully");
-		rs.setStatusCode(HttpStatus.ACCEPTED.value());
-		return new ResponseEntity<ResponseStructure<Loan>>(rs, HttpStatus.ACCEPTED);
+		Loan data = loanDAO.getLoan(id);
+		if (data != null) {
+			loanDAO.deleteLoan(id);
+			ResponseStructure<Loan> rs = new ResponseStructure<Loan>();
+			rs.setData(null);
+			rs.setMessage("Loan having id " + id + " delete successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Loan>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Loan having id " + id + " not present");
+		}
 	}
 }
