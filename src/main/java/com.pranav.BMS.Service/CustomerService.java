@@ -53,12 +53,17 @@ public class CustomerService {
 		}
 	}
 
-	public ResponseEntity<ResponseStructure<Customer>> deleteBranch(int id) {
-		customerDAO.deleteCustomer(id);
-		ResponseStructure<Customer> rs = new ResponseStructure<Customer>();
-		rs.setData(null);
-		rs.setMessage("Customer having id " + id + " deleted successfully");
-		rs.setStatusCode(HttpStatus.ACCEPTED.value());
-		return new ResponseEntity<ResponseStructure<Customer>>(rs, HttpStatus.ACCEPTED);
+	public ResponseEntity<ResponseStructure<Customer>> deleteCustomer(int id) {
+		Customer data = customerDAO.getCustomer(id);
+		if (data != null) {
+			customerDAO.deleteCustomer(id);
+			ResponseStructure<Customer> rs = new ResponseStructure<Customer>();
+			rs.setData(null);
+			rs.setMessage("Customer having id " + id + " deleted successfully");
+			rs.setStatusCode(HttpStatus.ACCEPTED.value());
+			return new ResponseEntity<ResponseStructure<Customer>>(rs, HttpStatus.ACCEPTED);
+		} else {
+			throw new IdDoesNotPresentException("Customer id " + id + " not found");
+		}
 	}
 }
